@@ -2,14 +2,16 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { ServiceWorkerRegistration } from "@/components/service-worker-registration";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 export const metadata: Metadata = {
   title: { default: "Materialplanung", template: "%s · S2 Volt" },
   description: "S2 Volt Materialplanung für Elektroprojekte",
   applicationName: "S2 Volt Materialplanung",
-  manifest: "/manifest.webmanifest",
+  manifest: `${basePath}/manifest.webmanifest`,
   icons: {
-    icon: "/favicon.svg",
-    apple: "/icons/apple-touch-icon.png"
+    icon: `${basePath}/favicon.svg`,
+    apple: `${basePath}/icons/apple-touch-icon.png`
   },
   appleWebApp: { capable: true, title: "S2 Volt", statusBarStyle: "default" },
   formatDetection: { telephone: false }

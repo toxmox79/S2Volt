@@ -19,6 +19,14 @@ npm run build
 npm start
 ```
 
+Statische GitHub-Pages-Demo:
+
+```bash
+npm run build:pages
+```
+
+Dieser Export stellt die interaktive Oberfläche unter `/S2Volt` bereit. Die serverseitigen AI-Endpunkte sind im statischen Pages-Artefakt bewusst nicht enthalten.
+
 Nicht konfigurierte Provider werden deaktiviert und verhindern den Start nicht. Ollama wird standardmäßig unter `http://localhost:11434` erwartet.
 
 ## PWA-Installation

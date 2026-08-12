@@ -41,6 +41,8 @@ const materialRows = [
   ["01.05.0030", "Brandschutzkanal I90 60×110", "65,00", "m", "46,20 €", "3.003,00 €", "× Ungeklärt"]
 ];
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 const titles: Record<View, [string, string]> = {
   dashboard: ["Übersicht", "Materialplanung"], analysis: ["Neue Ermittlung", "Ausschreibung analysieren"],
   materials: ["Material-Engine", "Materialpositionen"], projects: ["Projekte", "Projektübersicht"],
@@ -75,7 +77,7 @@ function AppContent() {
   return (
     <div className="app-shell">
       <aside className="sidebar">
-        <div className="brand"><img src="/brand/s2volt-logo.svg" alt="S2 Volt" /></div>
+        <div className="brand"><img src={`${basePath}/brand/s2volt-logo.svg`} alt="S2 Volt" /></div>
         <div className="nav-label">Arbeitsbereich</div>
         <nav aria-label="Hauptnavigation"><ul className="nav-list">
           {nav.map(([id, Icon, label]) => <li key={id}><button className={`nav-button ${view === id ? "active" : ""}`} onClick={() => setView(id)} aria-current={view === id ? "page" : undefined}><Icon /><span>{label}</span></button></li>)}

@@ -1,12 +1,14 @@
-const CACHE_VERSION = "s2volt-shell-v1";
+const CACHE_VERSION = "s2volt-shell-v2";
+const SCOPE_PATH = new URL(self.registration.scope).pathname.replace(/\/$/, "");
+const scoped = (path) => `${SCOPE_PATH}${path}` || "/";
 const APP_SHELL = [
-  "/",
-  "/offline",
-  "/manifest.webmanifest",
-  "/favicon.svg",
-  "/brand/s2volt-logo.svg",
-  "/icons/icon-192.png",
-  "/icons/icon-512.png"
+  scoped("/"),
+  scoped("/offline/"),
+  scoped("/manifest.webmanifest"),
+  scoped("/favicon.svg"),
+  scoped("/brand/s2volt-logo.svg"),
+  scoped("/icons/icon-192.png"),
+  scoped("/icons/icon-512.png")
 ];
 
 self.addEventListener("install", (event) => {
@@ -25,7 +27,7 @@ self.addEventListener("fetch", (event) => {
   const request = event.request;
   if (request.method !== "GET") return;
   const url = new URL(request.url);
-  if (url.pathname.startsWith("/api/")) return;
+  if (url.pathname.startsWith(scoped("/api/"))) return;
 
   if (request.mode === "navigate") {
     event.respondWith(
@@ -35,7 +37,7 @@ self.addEventListener("fetch", (event) => {
           caches.open(CACHE_VERSION).then((cache) => cache.put(request, copy));
           return response;
         })
-        .catch(async () => (await caches.match(request)) || caches.match("/offline"))
+        .catch(async () => (await caches.match(request)) || caches.match(scoped("/offline/")))
     );
     return;
   }
